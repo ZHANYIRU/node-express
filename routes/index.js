@@ -11,11 +11,11 @@ const bot = linebot({
 
 bot.on("message", (req) => {
   const userText = req.message.text;
-  // console.log(userText);
+  console.log(userText);
   req.reply(`剛剛說${userText}`);
 });
 
-bot.listen("/linewebhook", 3005, function () {
+bot.listen("/linewebhook", 3000, function () {
   console.log("[BOT已準備就緒]");
 });
 

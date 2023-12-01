@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+require("dotenv").config();
 const linebot = require("linebot");
 const { CHANNEL_ID, CHANNEL_SECRET, CHANNEL_ACCESS_TOKEN } = process.env;
 const bot = linebot({
@@ -7,7 +8,7 @@ const bot = linebot({
   channelSecret: CHANNEL_SECRET,
   channelAccessToken: CHANNEL_ACCESS_TOKEN,
 });
-console.log(bot);
+
 bot.on("message", (req) => {
   const userText = req.message.text;
   // console.log(userText);

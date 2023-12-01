@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios");
-const linebot = require("linebot");
+// const linebot = require("linebot");
+const line = require("@line/bot-sdk");
 require("dotenv").config();
 const { CHANNEL_ID, CHANNEL_SECRET, CHANNEL_ACCESS_TOKEN, RATE } = process.env;
 // const bot = linebot({
@@ -14,7 +15,7 @@ const config = {
   channelAccessToken: CHANNEL_ACCESS_TOKEN,
   channelSecret: CHANNEL_SECRET,
 };
-const client = new linebot.Client(config);
+const client = new line.Client(config);
 const getExchangeRate = async () => {
   const { data } = await axios.get(
     `https://openexchangerates.org/api/latest.json?app_id=${RATE}`
@@ -73,7 +74,7 @@ router.post("/linewebhook", line.middleware(config), async (req, res) => {
       console.error(err);
       res.status(500).end();
     });
-  res.render("index", { title: "line bot" });
+  // res.render("index", { title: "line bot" });
 });
 
 async function handleEvent(event) {

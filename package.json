@@ -6,6 +6,7 @@
     "start": "nodemon app.js"
   },
   "dependencies": {
+    "@line/bot-sdk": "^8.0.2",
     "axios": "^1.6.2",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",

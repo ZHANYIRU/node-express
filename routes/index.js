@@ -39,10 +39,16 @@ const getExchangeRate = async () => {
 //   console.log("[BOT已準備就緒]");
 // });
 
-router.get("/linewebhook", async () => {
-  bot.on("message", async (req) => {
+/* GET home page. */
+router.get("/", function (req, res, next) {
+  res.render("index", { title: "Express" });
+});
+
+router.post("/linewebhook", async (req, res) => {
+  console.log("req", req);
+  bot.on("message", async (event) => {
     let money = {};
-    const userText = req.message.text;
+    const userText = event.message.text;
     if (userText.indexOf("匯率") > -1) {
       money = await getExchangeRate();
     }
@@ -51,18 +57,13 @@ router.get("/linewebhook", async () => {
     // USD = 1
     // JPY = 147.27316667
 
-    console.log(userText);
-    req.reply(`
+    console.log("userText", userText);
+    event.reply(`
     美金：${money.rates["USD"]}
     台幣：${money.rates["TWD"]}
     日幣：${money.rates["JPY"]}`);
   });
-  res.render("index", { title: "Express" });
-});
-
-/* GET home page. */
-router.get("/", function (req, res, next) {
-  res.render("index", { title: "Express" });
+  res.render("index", { title: "line bot" });
 });
 
 router.get("/test", async (req, res) => {

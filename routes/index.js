@@ -52,6 +52,16 @@ bot.on("message", async (req) => {
     } else {
       resText = "金額錯誤";
     }
+  } else if (currency === "TWD") {
+    const moneyNumber = userText.replace(currency, "");
+    const numberReg = /^\d+$/;
+    if (numberReg.test(moneyNumber)) {
+      money = await getExchangeRate();
+      JPY = (money.rates["JPY"] / money.rates["TWD"]).toFixed(3);
+      resText = `日幣：${(+moneyNumber * JPY).toFixed(3)}`;
+    } else {
+      resText = "金額錯誤";
+    }
   } else {
     resText = `你剛剛輸入${userText}`;
   }

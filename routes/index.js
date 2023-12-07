@@ -45,7 +45,7 @@ bot.on("message", async (req) => {
     if (numberReg.test(moneyNumber)) {
       money = await getExchangeRate();
       JPY = (money.rates["JPY"] / money.rates["TWD"]).toFixed(3);
-      resText = `台幣：${+moneyNumber * JPY}`;
+      resText = `台幣：${+moneyNumber / JPY}`;
     } else {
       resText = "金額錯誤";
     }

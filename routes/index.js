@@ -27,6 +27,7 @@ bot.on("message", async (req) => {
   let TWD = 0;
   let JPY = 0;
   let USD = 0;
+  let KRW = 0;
   let resText = "";
   const userText = req.message.text;
   const currency = userText?.slice(-3);
@@ -36,16 +37,18 @@ bot.on("message", async (req) => {
     TWD = money.rates["TWD"] / money.rates["TWD"];
     JPY = (money.rates["JPY"] / money.rates["TWD"]).toFixed(3);
     USD = (money.rates["USD"] * money.rates["TWD"]).toFixed(3);
-    resText = `美金：${USD}
-台幣：${TWD}
-日幣：${JPY}`;
+    KRW = (money.rates["KRW"] / money.rates["TWD"]).toFixed(3);
+    resText = `台幣：${TWD}
+美金：${USD}
+日幣：${JPY}
+韓元：${KRW}`;
   } else if (currency === "JPY") {
     const moneyNumber = userText.replace(currency, "");
     const numberReg = /^\d+$/;
     if (numberReg.test(moneyNumber)) {
       money = await getExchangeRate();
       JPY = (money.rates["JPY"] / money.rates["TWD"]).toFixed(3);
-      resText = `台幣：${+moneyNumber / JPY}`;
+      resText = `台幣：${(+moneyNumber / JPY).toFixed(3)}`;
     } else {
       resText = "金額錯誤";
     }

@@ -62,6 +62,11 @@ bot.on("message", async (req) => {
     } else {
       resText = "金額錯誤";
     }
+  } else if (userText.indexOf("怎麼用") > -1) {
+    resText = `想查看匯率，輸入匯率
+想即時換算日幣台幣 請輸入金額幣別
+ex：3000JPY，會回給你對應台幣，
+3000TWD，會回對應日幣`;
   } else {
     resText = `你剛剛輸入${userText}`;
   }
